@@ -17,7 +17,7 @@
 <script>
     async function fetchMovie() {
         const movieName = document.getElementById('movieInput').value;
-        const apiKey = 'YOUR_OMDB_API_KEY'; // Replace with your OMDb API key
+        const apiKey = '5cc804da'; // Replace with your OMDb API key
         const url = `https://www.omdbapi.com/?t=${encodeURIComponent(movieName)}&apikey=${apiKey}`;
 
         const response = await fetch(url);
