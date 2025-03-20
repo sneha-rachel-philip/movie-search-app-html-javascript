@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white flex flex-col items-center justify-center h-screen">
+<h1 class="text-3xl font-bold mb-4">Movie Search</h1>
+<div class="flex space-x-2">
+    <input type="text" id="movieInput" class="p-2 border rounded-lg text-black" placeholder="Enter movie name">
+    <button onclick="fetchMovie()" class="bg-blue-500 px-4 py-2 rounded-lg">Search</button>
+</div>
+<div id="movieDetails" class="mt-4 text-center"></div>
+
+<script>
+    async function fetchMovie() {
+        const movieName = document.getElementById('movieInput').value;
+        const apiKey = '5cc804da'; // Replace with your OMDb API key
+        const url = `https://www.omdbapi.com/?t=${encodeURIComponent(movieName)}&apikey=${apiKey}`;
+
+        const response = await fetch(url);
+        const data = await response.json();
+        const detailsDiv = document.getElementById('movieDetails');
+
+        if (data.Response === "True") {
+            detailsDiv.innerHTML = `
+                <h2 class="text-xl font-semibold">${data.Title} (${data.Year})</h2>
+                <p class="mt-2">${data.Plot}</p>
+                <img src="${data.Poster}" alt="Movie Poster" class="mt-2 w-48">
+            `;
+        } else {
+            detailsDiv.innerHTML = `<p class="text-red-500">Movie not found. Please try another search.</p>`;
+        }
+    }
+</script>
+</body>
+</html>
